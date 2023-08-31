@@ -6,7 +6,7 @@ image: peter-testing-org/fa_github_event_notifier
 
 # Deploy to these servers.
 servers:
-  - ec2-3-252-29-84.eu-west-1.compute.amazonaws.com
+  - ec2-52-211-154-39.eu-west-1.compute.amazonaws.com
 
 ssh:
   user: root
@@ -39,13 +39,13 @@ env:
 builder:
   args:
     RUBY_VERSION: 3.1.4
-  multiarch: false
-  remote:
+  multiarch: true
+  # remote:
+  #   arch: amd64
+  #   host: unix:///var/run/docker.sock
+  local:
     arch: amd64
-    host: ssh://root@192.168.0.1
-  # local:
-  #   arch: arm64
-  #   host: unix:///Users/petersingh/.rd/docker.sock
+    # host: unix:///Users/petersingh/.rd/docker.sock
 
 # Use accessory services (secrets come from .env).
 # accessories:
