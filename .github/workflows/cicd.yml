@@ -40,7 +40,7 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          kamal setup
+          ./bin/kamal setup
 
       # -
       #   name: Build and push
