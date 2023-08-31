@@ -18,6 +18,30 @@ class GithubWebhooksController < ActionController::API
   end
 
   def github_workflow_job(payload)
-    puts payload
+    puts __method__
+    write_log(payload)
+  end
+
+  def github_workflow_run(payload)
+    puts __method__
+    write_log(payload)
+  end
+
+  def write_log(payload)
+    File.open("messages.txt", "a") do |file|
+      message = [
+        "workflow_name: \t #{payload.dig(:workflow_job, :workflow_name)}",
+        "action:        \t #{payload.dig(:action)}",
+        "name:          \t #{payload.dig(:repository, :name)}",
+        "login:         \t #{payload.dig(:sender, :login)}",
+        "steps:         \t #{payload.dig(:workflow_job, :steps)}",
+        "status:        \t #{payload.dig(:workflow_job, :status)}",
+      ].join("\n")
+
+      message = "\n#{message}\n"
+
+      file.write(message)
+      puts message
+    end
   end
 end
