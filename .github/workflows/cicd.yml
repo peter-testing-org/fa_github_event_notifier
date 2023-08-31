@@ -37,8 +37,8 @@ jobs:
         with:
           bundler-cache: true # bundle install
       - env:
-          RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
-          GHCR_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           kamal setup
 
