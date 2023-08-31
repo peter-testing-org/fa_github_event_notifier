@@ -2,7 +2,7 @@ class GithubWebhooksController < ActionController::API
   include GithubWebhook::Processor
 
   def up
-    render :plain
+    render plain: "OK, computer"
   end
 
   # Handle push event
