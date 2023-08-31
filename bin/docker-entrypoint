@@ -7,4 +7,5 @@
 
 # exec "${@}"
 
-echo hello
+
+exec ./bin/rails server
