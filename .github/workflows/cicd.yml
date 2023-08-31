@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: fa_github_event_notifier:${{ github.sha }}
+          tags: ghcr.io/peter-testing-org/fa_github_event_notifier:${{ github.sha }}
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.version=${{ github.sha }}
