@@ -10,6 +10,18 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          config: |
+            Host kamal-test
+              HostName ec2-52-211-154-39.eu-west-1.compute.amazonaws.com
+              User root
+              IdentityFile ~/.ssh/id_rsa
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
