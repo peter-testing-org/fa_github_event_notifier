@@ -33,14 +33,19 @@ registry:
 #   user: app
 
 # Configure builder setup.
-# builder:
-#   args:
-#     RUBY_VERSION: 3.2.0
 #   secrets:
 #     - GITHUB_TOKEN
-#   remote:
-#     arch: amd64
-#     host: ssh://app@192.168.0.1
+
+builder:
+  args:
+    RUBY_VERSION: 3.1.4
+  multiarch: false
+  remote:
+    arch: amd64/v3
+    host: ssh://root@192.168.0.1
+  # local:
+  #   arch: arm64
+  #   host: unix:///Users/petersingh/.rd/docker.sock
 
 # Use accessory services (secrets come from .env).
 # accessories:
