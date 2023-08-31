@@ -25,6 +25,7 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - GITHUB_WEBHOOK_SECRET
 #   clear:
 #     DB_HOST: 192.168.0.2
 
