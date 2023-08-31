@@ -30,3 +30,5 @@ end
 
 
 gem "dockerfile-rails", ">= 1.5", :group => :development
+
+gem "kamal", "~> 0.16.1"
