@@ -22,11 +22,11 @@ registry:
     - GHCR_TOKEN
 
 # Inject ENV variables into containers (secrets come from .env).
-# env:
+env:
+  secret:
+    - RAILS_MASTER_KEY
 #   clear:
 #     DB_HOST: 192.168.0.2
-#   secret:
-#     - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
 # ssh:
@@ -41,7 +41,7 @@ builder:
     RUBY_VERSION: 3.1.4
   multiarch: false
   remote:
-    arch: amd64/v3
+    arch: amd64
     host: ssh://root@192.168.0.1
   # local:
   #   arch: arm64
