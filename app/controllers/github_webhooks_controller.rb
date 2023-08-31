@@ -28,20 +28,40 @@ class GithubWebhooksController < ActionController::API
   end
 
   def write_log(payload)
-    File.open("messages.txt", "a") do |file|
-      message = [
-        "workflow_name: \t #{payload.dig(:workflow_job, :workflow_name)}",
-        "action:        \t #{payload.dig(:action)}",
-        "name:          \t #{payload.dig(:repository, :name)}",
-        "login:         \t #{payload.dig(:sender, :login)}",
-        "steps:         \t #{payload.dig(:workflow_job, :steps)}",
-        "status:        \t #{payload.dig(:workflow_job, :status)}",
-      ].join("\n")
+    message = [
+      "workflow_name: \t #{payload.dig(:workflow_job, :workflow_name)}",
+      "action:        \t #{payload.dig(:action)}",
+      "name:          \t #{payload.dig(:repository, :name)}",
+      "login:         \t #{payload.dig(:sender, :login)}",
+      "steps:         \t #{payload.dig(:workflow_job, :steps)}",
+      "status:        \t #{payload.dig(:workflow_job, :status)}",
+    ].join("\n")
 
-      message = "\n#{message}\n"
+    message = "\n#{message}\n"
 
-      file.write(message)
-      puts message
-    end
+    # File.open("messages.txt", "a") do |file|
+    #   file.write(message)
+    # end
+
+    puts message
+    send_to_slack(message)
   end
+end
+
+###
+
+
+# frozen_string_literal: true
+require 'slack-ruby-client'
+
+Slack.configure do |config|
+  ENV['SLACK_API_TOKEN'] = Rails.application.credentials.slack_token
+  config.token = ENV['SLACK_API_TOKEN']
+  raise 'Missing ENV[SLACK_API_TOKEN]!' unless config.token
+end
+
+def send_to_slack(message)
+  client = Slack::Web::Client.new
+  client.auth_test
+  client.chat_postMessage(channel: '#actions-ci', text: message, as_user: true)
 end

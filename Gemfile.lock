@@ -169,6 +169,7 @@ DEPENDENCIES
   github_webhook (~> 1.4)
   puma (~> 5.0)
   rails (~> 7.0.7, >= 7.0.7.2)
+  slack-ruby-client
   tzinfo-data
 
 RUBY VERSION
