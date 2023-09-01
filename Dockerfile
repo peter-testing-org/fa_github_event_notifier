@@ -1,6 +1,16 @@
 ARG RUBY_VERSION=3.1.4
 FROM ruby:$RUBY_VERSION-slim as base
 
+ARG GITHUB_REPO=peter-testing-org/fa_github_event_notifier
+ARG GITHUB_SHA=latest
+ARG VENDOR=PeterSingh
+
+LABEL org.opencontainers.image.source=https://github.com/$GITHUB_REPO
+LABEL org.opencontainers.image.version=$$GITHUB_SHA
+LABEL org.opencontainers.image.revision=$$GITHUB_SHA
+LABEL org.opencontainers.image.url=https://github.com/$GITHUB_REPO/tree/$GITHUB_SHA
+LABEL org.opencontainers.image.vendor=$VENDOR
+
 # Rails app lives here
 WORKDIR /rails
 
