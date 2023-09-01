@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get '/up', to: 'github_webhooks#up'
 
   resource :github_webhooks, only: :create, defaults: { formats: :json }
 end

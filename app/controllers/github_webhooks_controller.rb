@@ -1,6 +1,10 @@
 class GithubWebhooksController < ActionController::API
   include GithubWebhook::Processor
 
+  def up
+    render plain: "OK, computer"
+  end
+
   # Handle push event
   def github_push(payload)
     # TODO: handle push webhook

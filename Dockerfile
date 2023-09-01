@@ -1,8 +1,17 @@
-# syntax = docker/dockerfile:1
-
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.1.4
 FROM ruby:$RUBY_VERSION-slim as base
+
+ARG GITHUB_REPO=peter-testing-org/fa_github_event_notifier
+ARG GITHUB_SHA=latest
+ARG VENDOR=PeterSingh
+
+LABEL org.opencontainers.image.source=https://github.com/$GITHUB_REPO
+LABEL org.opencontainers.image.version=$$GITHUB_SHA
+LABEL org.opencontainers.image.revision=$$GITHUB_SHA
+LABEL org.opencontainers.image.url=https://github.com/$GITHUB_REPO/tree/$GITHUB_SHA
+LABEL org.opencontainers.image.vendor=$VENDOR
+
+LABEL org.opencontainers.image.description The app image, deployed with Kamal
 
 # Rails app lives here
 WORKDIR /rails
@@ -16,13 +25,12 @@ ENV RAILS_ENV="production" \
 RUN gem update --system --no-document && \
     gem install -N bundler
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential
+    apt-get install --no-install-recommends -y build-essential curl
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./
