@@ -11,6 +11,8 @@ LABEL org.opencontainers.image.revision=$$GITHUB_SHA
 LABEL org.opencontainers.image.url=https://github.com/$GITHUB_REPO/tree/$GITHUB_SHA
 LABEL org.opencontainers.image.vendor=$VENDOR
 
+LABEL org.opencontainers.image.description The app image, deployed with Kamal
+
 # Rails app lives here
 WORKDIR /rails
 
